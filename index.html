@@ -37,6 +37,22 @@
     .filter-btn.filter-active {
       box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.8);
     }
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      margin-bottom: 0.5rem;
+    }
+    .badge-sale {
+      background-color: #b91c1c;
+      color: #fff;
+    }
+    .badge-rating {
+      background-color: #166534;
+      color: #fefce8;
+    }
   </style>
 </head>
 
@@ -157,18 +173,40 @@
 
       filtered.forEach(p => {
         const store = (p.store || 'amazon').toLowerCase();
+
+        // 🔹 Badge logic based on name prefix
+        const rawName = p.name || '';
+        let badgeType = null;
+        let displayName = rawName;
+
+        if (rawName.toUpperCase().startsWith('SALE!!')) {
+          badgeType = 'sale';
+          displayName = rawName.replace(/^SALE!!\s*/i, '');
+        } else if (rawName.toUpperCase().startsWith('HIGH RATING!!')) {
+          badgeType = 'rating';
+          displayName = rawName.replace(/^HIGH RATING!!\s*/i, '');
+        }
+
         const btnClass =
           store === 'etsy'
             ? 'mt-auto inline-block bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600'
             : 'mt-auto inline-block bg-amber-600 text-white px-4 py-2 rounded hover:bg-amber-700';
         const btnText = store === 'etsy' ? 'Shop on Etsy' : 'Shop on Amazon';
 
+        let badgeHtml = '';
+        if (badgeType === 'sale') {
+          badgeHtml = `<span class="badge badge-sale">SALE</span>`;
+        } else if (badgeType === 'rating') {
+          badgeHtml = `<span class="badge badge-rating">High Rating</span>`;
+        }
+
         const card = document.createElement('div');
         card.className = 'product-card bg-white shadow rounded-2xl overflow-hidden flex flex-col';
         card.innerHTML = `
-          <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover">
+          <img src="${p.image}" alt="${displayName}" class="w-full h-48 object-cover">
           <div class="p-4 flex flex-col flex-grow">
-            <h4 class="text-lg font-semibold mb-2">${p.name}</h4>
+            ${badgeHtml}
+            <h4 class="text-lg font-semibold mb-2">${displayName}</h4>
             <p class="text-gray-600 mb-4 flex-grow">${p.description}</p>
             <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="${btnClass}">
               ${btnText}
