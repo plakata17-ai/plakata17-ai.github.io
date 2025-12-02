@@ -201,19 +201,30 @@
         }
 
         const card = document.createElement('div');
-        card.className = 'product-card bg-white shadow rounded-2xl overflow-hidden flex flex-col';
-        card.innerHTML = `
-          <img src="${p.image}" alt="${displayName}" class="w-full h-48 object-cover">
-          <div class="p-4 flex flex-col flex-grow">
-            ${badgeHtml}
-            <h4 class="text-lg font-semibold mb-2">${displayName}</h4>
-            <p class="text-gray-600 mb-4 flex-grow">${p.description}</p>
-            <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="${btnClass}">
-              ${btnText}
-            </a>
-          </div>
-        `;
-        grid.appendChild(card);
+card.className = 'product-card bg-white shadow rounded-2xl overflow-hidden flex flex-col';
+const storeLabel = store === 'etsy' ? 'Etsy' : 'Amazon';
+
+card.innerHTML = `
+  <img src="${p.image}" alt="${displayName}" class="w-full h-48 object-cover">
+  <div class="p-4 flex flex-col flex-grow">
+    <div class="flex items-center justify-between mb-2">
+      <div>
+        ${badgeHtml}
+      </div>
+      <span class="text-xs uppercase tracking-wide text-gray-400">
+        ${storeLabel}
+      </span>
+    </div>
+    <h4 class="text-base font-semibold mb-2 line-clamp-2">${displayName}</h4>
+    <p class="text-sm text-gray-600 mb-4 flex-grow overflow-hidden">
+      ${p.description}
+    </p>
+    <a href="${p.link}" target="_blank" rel="noopener noreferrer" class="${btnClass}">
+      ${btnText}
+    </a>
+  </div>
+`;
+grid.appendChild(card);
       });
     }
 
