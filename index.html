@@ -60,12 +60,31 @@
   </section>
 
   <!-- Shop Section -->
-  <section id="shop" class="max-w-6xl mx-auto px-6 py-12">
-    <h3 class="text-3xl font-semibold mb-8 text-center">Shop Our Favorites</h3>
-    <div id="productGrid" class="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      <!-- Products loaded dynamically from products.json -->
-    </div>
-  </section>
+<section id="shop" class="max-w-7xl mx-auto px-6 py-12">
+  <h3 class="text-4xl font-semibold mb-6 text-center">Shop Our Favorites</h3>
+
+  <!-- Search Bar -->
+  <div class="flex justify-center mb-8">
+    <input 
+      id="searchInput"
+      type="text"
+      placeholder="Search products..."
+      class="w-full sm:w-2/3 md:w-1/2 px-4 py-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-amber-500"
+    />
+  </div>
+
+  <!-- Filter Buttons -->
+  <div class="flex justify-center mb-10 gap-3 flex-wrap">
+    <button data-filter="all" class="filter-btn bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-300">All</button>
+    <button data-filter="amazon" class="filter-btn bg-amber-500 text-white px-4 py-2 rounded-full hover:bg-amber-600">Amazon</button>
+    <button data-filter="etsy" class="filter-btn bg-pink-500 text-white px-4 py-2 rounded-full hover:bg-pink-600">Etsy</button>
+  </div>
+
+  <!-- Product Grid -->
+  <div id="productGrid" class="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <!-- Product cards appear here dynamically -->
+  </div>
+</section>
 
   <!-- About -->
   <section id="about" class="bg-white py-16 text-center">
